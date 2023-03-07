@@ -11,33 +11,35 @@ public class Pell {
         try (Scanner in = new Scanner(System.in)) {
             System.out.println("Ввод:");
             boolean flag = true;
+            int n = 0;
 
             while (flag) {
-                int n = in.nextInt();
+                System.out.print("-> ");
+                n = in.nextInt();
 
                 if (n < 0 || n > 30) {
-                    System.err.println("Ошибка ввода!");
+                    System.out.println("Ошибка ввода!");
                     continue;
-                }
-
-                System.out.println("Вывод:");
-                switch (n) {
-                    case 0 -> System.out.println("0");
-                    case 1 -> System.out.println("1");
-                    default -> {
-                        long result = Math.round(2 * funPell(n - 1) + funPell(n - 2));
-                        System.out.println(result);
-                    }
                 }
                 flag = false;
             }
+
+            long result = 0;
+            for (int i = 0; i <=n; i++) {
+                long res = pell(i);
+                System.out.print(res + " ");
+                if (i == n) {
+                    result = res;
+                }
+            }
+
+            System.out.println("\nВывод:");
+            System.out.println(result);
         }
     }
 
-    static double funPell(int n) {
-        double sqrtTwo = Math.sqrt(2);
-        double arg1 = Math.pow((1 + sqrtTwo), n);
-        double arg2 = Math.pow((1 - sqrtTwo), n);
-        return (arg1 - arg2) / (2 * sqrtTwo);
+    static long pell(int n) {
+        if (n < 3) return n;
+        return 2 * pell(n - 1) + pell(n - 2);
     }
 }
